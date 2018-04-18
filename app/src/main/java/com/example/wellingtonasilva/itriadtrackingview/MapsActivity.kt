@@ -1,5 +1,6 @@
 package com.example.wellingtonasilva.itriadtrackingview
 
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -11,10 +12,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.reactivex.Observable
@@ -58,6 +56,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback
 
         //Zoom
         addMarkWithZoom(-3.018459, -60.027603, 15f)
+
+        val geofence = arrayListOf<LatLng>(LatLng(-3.027544, -60.021026), LatLng(-3.029505, -60.017164))
+        geofence.forEach { item -> createGeofence(item)}
 
         val observable: Observable<List<LatLng>> = Observable.create { e -> e.onNext(getCoordenates()) }
         observable
@@ -124,5 +125,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback
         coordenadas.forEach { item -> item.initialize(true)
             handler.postDelayed(item, 1000)
         }
+    }
+
+    fun createGeofence(latLng: LatLng)
+    {
+        val circle = mMap.addCircle(CircleOptions()
+                .center(latLng)
+                .radius(300.0)
+                .fillColor(0x40ff0000)
+                .strokeColor(Color.TRANSPARENT)
+                .strokeWidth(1.5f))
     }
 }
