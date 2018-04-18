@@ -20,13 +20,11 @@ import com.google.gson.reflect.TypeToken
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.ConcurrentLinkedQueue
-import java.util.concurrent.TimeUnit
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
-
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback
+{
     private lateinit var mMap: GoogleMap
     private lateinit var handler: Handler
     private val coordenadas = ConcurrentLinkedQueue<AnimatorPosition>()
